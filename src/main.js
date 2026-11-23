@@ -36,6 +36,7 @@
   function frame(now) {
     const dt = Math.min(.05, (now - previous) / 1000); previous = now;
     if (s.screen !== "menu" && s.screen !== "pause" && s.screen !== "victory" && s.screen !== "defeat") g.tick(dt);
+    window.MetroAudio?.sync(s);
     if (now - lastPaint > 1000 / 40) { window.MetroRender.render(); lastPaint = now; }
     if (Object.values(window.MetroRender.images).every(im => im.complete && im.naturalWidth)) overlay.classList.add("done");
     requestAnimationFrame(frame);

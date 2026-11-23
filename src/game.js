@@ -17,11 +17,13 @@
   function start() {
     Object.assign(state, { screen: "intro", intro: 0, station: 0, segment: C.segmentSeconds, score: 0, streak: 0,
       enemies: [], effects: [], buffs: [], nextAttack: 4.5, attackCount: 0, nextEvent: 11, threshold: 1, complete: null, completeSpawned: false, hasComplete: false, eventName: "", elapsed: 0 });
+    window.MetroAudio?.startRun();
   }
   function beginGame() { state.screen = "game"; state.nextAttack = 1.8; state.hint = "¡Ojo, viene alguien!"; state.hintTime = 2.8; }
   function nextStation() {
     state.station++;
     if (state.station >= C.stations.length) { state.screen = "victory"; return; }
+    window.MetroAudio?.playStation(state.station);
     state.segment = C.segmentSeconds; state.enemies = []; state.complete = null; state.buffs = [];
     state.cinematic = { timer: C.cinematicSeconds, from: state.station - 1, to: state.station, door: 0 };
     state.screen = "cinematic";
@@ -81,7 +83,7 @@
     }
     if (s.meter >= 1) { state.screen = "game"; state.struggle = null; state.enemies = []; state.flash = .5; state.hint = "¡Te zafaste!"; state.hintTime = 1.2; }
   }
-  function fail() { state.screen = "defeat"; state.enemies = []; state.buffs = []; }
+  function fail() { state.screen = "defeat"; state.enemies = []; state.buffs = []; window.MetroAudio?.gameOver(); }
   function tick(dt) {
     const s = state; s.elapsed += dt;
     s.flash = Math.max(0, s.flash - dt); s.shake = Math.max(0, s.shake - dt); s.punch = Math.max(0, s.punch - dt); s.hintTime = Math.max(0, s.hintTime - dt);
