@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const s = window.MetroGame.state, cfg = window.MetroConfig;
   function activate(id) {
     const data = cfg.events[id]; s.buffs = s.buffs.filter(b => b.id !== id);
@@ -14,8 +14,8 @@
       const options = ["mon", "leo", "carlos"];
       const id = options[Math.floor(Math.random() * options.length)]; activate(id);
     }
-    if (!s.complete && !s.hasComplete && s.elapsed > 20 && Math.random() < dt * .018) {
-      s.complete = { x: Math.random() < .5 ? 460 : 820 }; s.completeWindow = 4;
+    if (!s.complete && !s.hasComplete && !s.completeSpawned && s.elapsed > 13) {
+      s.complete = { x: Math.random() < .5 ? 560 : 720 }; s.completeWindow = 4; s.completeSpawned = true;
       s.hint = "¡Se cayó un completo! ESPACIO para recoger"; s.hintTime = 2.8;
     }
     // Tormenta China y Juan Carlos Bodoque cruzan solos al superar cada millar.
@@ -31,3 +31,4 @@
   }
   window.MetroEvents = { update, activate, completePickup };
 })();
+
