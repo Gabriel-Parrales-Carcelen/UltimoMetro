@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" shape-rendering="crispEdges">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#111b3c"/><stop offset="1" stop-color="#526b94"/></linearGradient><linearGradient id="lamp" x2="0" y2="1"><stop stop-color="#fff3b0" stop-opacity=".55"/><stop offset="1" stop-color="#fff3b0" stop-opacity="0"/></linearGradient></defs>
+ <rect width="1280" height="720" fill="url(#sky)"/><path d="M0 368h1280v20H0z" fill="#151e36"/>
+ <g fill="#202d4b"><path d="M0 228h118v160H0zM143 184h142v204H143zM314 255h110v133H314zM892 205h130v183H892zM1050 156h135v232h-135zM1202 239h78v149h-78z"/></g>
+ <g fill="#8ca4c3" opacity=".6"><path d="M27 252h16v28H27zM67 252h16v28H67zM179 210h18v25h-18zM224 210h18v25h-18zM179 260h18v25h-18zM224 260h18v25h-18zM1078 181h18v24h-18zM1124 181h18v24h-18zM1078 229h18v24h-18zM1124 229h18v24h-18z"/></g>
+ <path d="M0 388h1280v48H0z" fill="#c2c9d7"/><path d="M0 436h1280v18H0z" fill="#e3bf59"/><path d="M0 454h1280v176H0z" fill="#65718a"/><path d="M0 630h1280v90H0z" fill="#262f46"/>
+ <g fill="#78849c"><path d="M0 484h1280v8H0zM0 532h1280v6H0zM0 586h1280v5H0z"/></g>
+ <path d="M306 100h668v164H306z" fill="#17213c" stroke="#c4cedf" stroke-width="8"/><path d="M323 117h634v130H323z" fill="#244166"/><circle cx="366" cy="182" r="19" fill="#ec4858"/><text x="404" y="174" fill="#ff6570" font-family="Arial" font-size="21" font-weight="bold" letter-spacing="4">METRO DE SANTIAGO</text><text x="404" y="218" fill="#fff" font-family="Arial" font-size="38" font-weight="bold">LOS HÉROES</text>
+ <path d="M104 88h38v204h-38z" fill="#d2d7e1"/><path d="M70 288h105v22H70z" fill="#e7cf81"/><path d="M1098 76h38v250h-38z" fill="#d2d7e1"/><path d="M1063 322h108v20h-108z" fill="#e7cf81"/><path d="M0 0h1280v18H0z" fill="#91a0bb"/>
+ <g fill="#fff0b0"><path d="M80 37h138v13H80zM558 44h164v14H558zM1060 39h138v13h-138z"/></g><path d="M558 55h164v125H558z" fill="url(#lamp)" opacity=".45"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" shape-rendering="crispEdges">
+ <defs><linearGradient id="night" x2="0" y2="1"><stop stop-color="#0b1632"/><stop offset=".66" stop-color="#344969"/><stop offset="1" stop-color="#8b8191"/></linearGradient></defs>
+ <rect width="1280" height="720" fill="url(#night)"/><circle cx="1020" cy="114" r="50" fill="#ffe8b0" opacity=".85"/><g fill="#182541"><path d="M0 235h110v175H0zM126 165h120v245H126zM261 214h96v196h-96zM372 120h150v290H372zM544 208h118v202H544zM690 174h110v236H690zM824 220h118v190H824zM965 130h142v280H965zM1130 202h150v208h-150z"/></g>
+ <g fill="#ffd877" opacity=".7"><path d="M150 191h15v22h-15zM188 191h15v22h-15zM414 148h18v25h-18zM463 148h18v25h-18zM414 195h18v25h-18zM463 195h18v25h-18zM1002 158h18v24h-18zM1050 158h18v24h-18zM1002 205h18v24h-18zM1050 205h18v24h-18z"/></g>
+ <path d="M0 405h1280v27H0z" fill="#d0d4df"/><path d="M0 432h1280v17H0z" fill="#e8c35a"/><path d="M0 449h1280v180H0z" fill="#6d778b"/><path d="M0 629h1280v91H0z" fill="#263047"/><g fill="#8790a4"><path d="M0 491h1280v7H0zM0 552h1280v5H0zM0 596h1280v5H0z"/></g>
+ <path d="M351 71h578v179H351z" fill="#182542" stroke="#c4cedf" stroke-width="7"/><path d="M368 87h544v148H368z" fill="#293f66"/><text x="402" y="142" fill="#f35b69" font-family="Arial" font-size="20" font-weight="bold" letter-spacing="4">ESTACIÓN</text><text x="402" y="204" fill="#fff" font-family="Arial" font-size="50" font-weight="bold">REPÚBLICA</text>
+ <path d="M88 55h22v219H88zM1146 49h22v225h-22z" fill="#d5d9e1"/><path d="M55 268h90v20H55zM1110 268h90v20h-90z" fill="#d9bc67"/><g fill="#fff1be"><path d="M224 50h127v12H224zM571 29h139v13H571zM909 50h134v12H909z"/></g>
+</svg>

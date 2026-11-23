@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" shape-rendering="crispEdges">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#101b38"/><stop offset="1" stop-color="#435c83"/></linearGradient></defs>
+ <rect width="1280" height="720" fill="url(#sky)"/><path d="M0 0h1280v42H0z" fill="#17223d"/><g fill="#1b2b49"><path d="M0 218h133v192H0zM150 170h170v240H150zM344 226h122v184H344zM831 213h120v197H831zM969 165h146v245H969zM1134 234h146v176h-146z"/></g>
+ <g fill="#93abc8" opacity=".6"><path d="M177 196h20v27h-20zM225 196h20v27h-20zM177 248h20v27h-20zM225 248h20v27h-20zM1002 190h18v24h-18zM1049 190h18v24h-18zM1002 236h18v24h-18zM1049 236h18v24h-18z"/></g>
+ <path d="M0 407h1280v32H0z" fill="#cbd1dc"/><path d="M0 439h1280v18H0z" fill="#f1c85b"/><path d="M0 457h1280v171H0z" fill="#68758e"/><path d="M0 628h1280v92H0z" fill="#27324a"/><g fill="#8792a7"><path d="M0 497h1280v6H0zM0 552h1280v6H0zM0 592h1280v6H0z"/></g>
+ <path d="M378 84h524v174H378z" fill="#18243f" stroke="#ccd4e2" stroke-width="7"/><path d="M396 102h488v138H396z" fill="#29436a"/><text x="436" y="153" fill="#ff6471" font-family="Arial" font-size="20" font-weight="bold" letter-spacing="5">LÍNEA 1</text><text x="436" y="211" fill="#fff" font-family="Arial" font-size="49" font-weight="bold">ULA</text>
+ <path d="M77 56h36v241H77zM1164 58h36v239h-36z" fill="#d4d9e3"/><path d="M45 290h100v20H45zM1134 290h100v20h-100z" fill="#dfbd61"/><g fill="#fff0bb"><path d="M258 39h144v14H258zM568 34h144v14H568zM881 39h144v14H881z"/></g>
+ <path d="M286 341h24v66h-24zM310 351h12v56h-12zM932 338h21v69h-21zM954 350h13v57h-13z" fill="#eee8df" opacity=".8"/>
+</svg>
