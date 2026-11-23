@@ -1,6 +1,6 @@
 (() => {
   const canvas = document.getElementById("game"), ctx = canvas.getContext("2d");
-  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
+  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", logo: "logo1.png", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
   const images = {}, sprites = {};
   for (const [key, file] of Object.entries(assetNames)) { const im = new Image(); im.src = `assets/${file}`; images[key] = im; }
   // Las hojas recibidas traen fondo blanco: esta pasada lo vuelve transparente para respetar el pixel art.
@@ -119,7 +119,8 @@
   function drawMenu() {
     drawBg(true); drawSprite("freireSit",490,245,300,385);
     panel(145,95,990,445,"#0e1424eD","#dce4f5",14);
-    label("METRO DE",640,168,26,"#f2d56b",800,"center"); label("VUELTA",640,228,67,"#fff",900,"center");
+    const logo=images.logo;
+    if(logo.complete&&logo.naturalWidth)ctx.drawImage(logo,445,133,390,139);
     label("EL ÚLTIMO TREN A CASA",640,295,20,"#e7eaf3",700,"center");
     label("Defiende tu mochila entre Los Héroes y Estación Central.",640,348,20,"#e5e7ed",600,"center");
     label("A / ← golpe izquierdo     D / → golpe derecho     ESPACIO: interactuar",640,393,16,"#f2d56b",700,"center");
