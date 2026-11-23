@@ -1,5 +1,6 @@
 ﻿(() => {
   const C = window.MetroConfig;
+  const punchSound = new Audio(new URL("assets/puñetazo.mp3", document.baseURI).href);
   const state = {
     screen: "menu", intro: 0, station: 0, segment: C.segmentSeconds, score: 0, streak: 0,
     enemies: [], effects: [], buffs: [], flash: 0, shake: 0, punch: 0, punchSide: 1,
@@ -38,6 +39,8 @@
   function punch(side) {
     if (state.screen !== "game" && state.screen !== "struggle") return;
     if (state.screen === "struggle") { window.MetroGame.struggleTap(); return; }
+    punchSound.currentTime = 0;
+    punchSound.play().catch(() => {});
     state.punch = .22; state.punchSide = side;
 
     // El completo permite despejar una pareja doble con un golpe a distancia.
