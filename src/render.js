@@ -1,6 +1,6 @@
 ﻿(() => {
   const canvas = document.getElementById("game"), ctx = canvas.getContext("2d");
-  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", logo: "logo1.png", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", player: "characters/protagonist-seated.png", bodoque: "events/bodoque-running.png", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
+  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", logo: "logo1.png", complete: "completoitaliano.jpg", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", player: "characters/protagonist-seated.png", bodoque: "events/bodoque-running.png", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
   const images = {}, sprites = {};
   for (const [key, file] of Object.entries(assetNames)) { const im = new Image(); im.src = `assets/${file}`; images[key] = im; }
   // Las hojas recibidas traen fondo blanco: esta pasada lo vuelve transparente para respetar el pixel art.
@@ -112,7 +112,7 @@
   }  function drawGame() {
     drawBg();drawTravel();
     drawVisitors(); pixelAvatar();
-    if(s.complete) { const x=s.complete.x,y=520,nx=x<640?x+70:x-155;ctx.fillStyle="#28263b";ctx.fillRect(nx+16,398,43,83);ctx.fillStyle="#a7454f";ctx.fillRect(nx+9,420,57,57);ctx.fillStyle="#e7b082";ctx.fillRect(nx+18,369,39,42);ctx.fillStyle="#342538";ctx.fillRect(nx+13,365,49,16);ctx.fillRect(nx+12,378,10,20);ctx.fillStyle="#e7b082";ctx.fillRect(nx+54,444,32,10);ctx.fillStyle="#212738";ctx.fillRect(nx+10,475,19,40);ctx.fillRect(nx+42,475,19,40);label("¡UPS!",nx+36,350,13,"#fff",800,"center");ctx.fillStyle="#f4d985";ctx.beginPath();ctx.ellipse(x,y,34,16,0,0,7);ctx.fill();ctx.fillStyle="#ef8054";ctx.fillRect(x-22,y-7,44,11);ctx.fillStyle="#43864b";ctx.fillRect(x-8,y-9,15,6);label("ESPACIO",x,y-38,13,"#fff",800,"center"); }
+    if(s.complete) { const x=s.complete.x,y=520,food=images.complete; if(food.complete&&food.naturalWidth)ctx.drawImage(food,x-55,y-68,110,62);label("ESPACIO",x,y-82,13,"#fff",800,"center"); }
     s.enemies.forEach(drawEnemy); drawFist(); drawSpecialSweep(); drawHud();
     s.effects.forEach(e=>{label(e.label,e.x,e.y,25,e.type==="miss"?"#ff7f83":e.type==="event"?"#ffe18e":"#fff",900,"center");});
     if(s.hintTime>0){panel(350,620,580,56,"#101629df","#e5d594",8);label(s.hint,640,649,17,"#fff",800,"center");}
