@@ -1,10 +1,10 @@
-(() => {
+﻿(() => {
   const C = window.MetroConfig;
   const state = {
     screen: "menu", intro: 0, station: 0, segment: C.segmentSeconds, score: 0, streak: 0,
     enemies: [], effects: [], buffs: [], flash: 0, shake: 0, punch: 0, punchSide: 1,
     nextAttack: 4.2, attackCount: 0, nextEvent: 12, eventName: "", pauseFrom: "game",
-    struggle: null, cinematic: null, threshold: 1, complete: null, completeWindow: 0,
+    struggle: null, cinematic: null, threshold: 1, complete: null, completeWindow: 0, completeSpawned: false,
     hint: "", hintTime: 0, elapsed: 0, doors: 0, introCard: 0, lastAttack: 0, hasComplete: false
   };
   const introCards = [
@@ -16,7 +16,7 @@
   ];
   function start() {
     Object.assign(state, { screen: "intro", intro: 0, station: 0, segment: C.segmentSeconds, score: 0, streak: 0,
-      enemies: [], effects: [], buffs: [], nextAttack: 4.5, attackCount: 0, nextEvent: 11, threshold: 1, complete: null, hasComplete: false, eventName: "", elapsed: 0 });
+      enemies: [], effects: [], buffs: [], nextAttack: 4.5, attackCount: 0, nextEvent: 11, threshold: 1, complete: null, completeSpawned: false, hasComplete: false, eventName: "", elapsed: 0 });
   }
   function beginGame() { state.screen = "game"; state.nextAttack = 1.8; state.hint = "¡Ojo, viene alguien!"; state.hintTime = 2.8; }
   function nextStation() {
@@ -39,25 +39,39 @@
     if (state.screen !== "game" && state.screen !== "struggle") return;
     if (state.screen === "struggle") { window.MetroGame.struggleTap(); return; }
     state.punch = .22; state.punchSide = side;
+
+    // El completo permite despejar una pareja doble con un golpe a distancia.
+    if (state.hasComplete) {
+      const paired = state.enemies
+        .filter(e => e.double && e.side === side)
+        .sort((a,b) => Math.abs(a.x - 640) - Math.abs(b.x - 640))[0];
+      if (paired) {
+        state.enemies = state.enemies.filter(e => e.pair !== paired.pair);
+        state.score += 250; state.streak++;
+        state.hasComplete = false; state.complete = null;
+        state.effects.push({ type: "hit", x: 640, y: 350, t: .9, label: "¡DOBLE CONTRAATACADO! +250" });
+        state.hint = "¡El completo despejó a los dos ladrones!";
+        state.hintTime = 2;
+        return;
+      }
+    }
+
     const reach = state.buffs.some(b => b.id === "leo") ? 300 : 215;
     const targets = state.enemies.filter(e => !e.grabbed && e.side === side && Math.abs(e.x - 640) < reach + 65);
     if (targets.length) {
       const target = targets.sort((a,b) => Math.abs(a.x-640)-Math.abs(b.x-640))[0];
-      if (state.hasComplete && target.double) {
-        state.enemies = state.enemies.filter(e => e.pair !== target.pair); state.score += 250; state.streak++;
-        state.hasComplete = false; state.complete = null;
-        state.effects.push({type:"hit",x:640,y:350,t:.9,label:"DOBLE CONTRAATACADO! +250"}); return;
-      }
       target.hp--;
       if (target.hp <= 0) {
         state.enemies = state.enemies.filter(e => e !== target);
         state.score += state.buffs.some(b => b.id === "copano") ? 180 : 100;
         state.streak++; state.flash = .18;
         state.effects.push({ type: "hit", x: target.x, y: target.y - 100, t: .65, label: "¡FUERA! +100" });
-      } else if (state.enemies.length > 1 && state.enemies.every(e => e.hp <= 0)) state.enemies = [];
-    } else { state.streak = 0; state.effects.push({ type: "miss", x: 640 + side * 120, y: 440, t: .35, label: "¡FALLASTE!" }); }
-  }
-  function struggleTap() {
+      }
+    } else {
+      state.streak = 0;
+      state.effects.push({ type: "miss", x: 640 + side * 120, y: 440, t: .35, label: "¡FALLASTE!" });
+    }
+  }  function struggleTap() {
     const s = state.struggle; if (!s) return;
     if (s.type === "one") { s.press++; s.meter = Math.min(1, s.meter + .17); }
     else {
@@ -118,3 +132,5 @@
   }
   window.MetroGame = { state, start, beginGame, nextStation, addEnemy, punch, struggleTap, fail, tick };
 })();
+
+

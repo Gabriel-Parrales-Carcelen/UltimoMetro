@@ -1,6 +1,6 @@
-(() => {
+﻿(() => {
   const canvas = document.getElementById("game"), ctx = canvas.getContext("2d");
-  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", logo: "logo1.png", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
+  const assetNames = { background: "vagon.jpg", night: "vagon-noche.png", logo: "logo1.png", driver: "conductora.png", driverTalk: "conductora-habla.png", carlos: "carlos-pinto.jpg", copano: "copano.jpg", copanoTalk: "copano-boca.jpg", mon: "mon-laferte.jpg", freire: "freire.jpg", leo: "leo-rey.jpg", player: "characters/protagonist-seated.png", bodoque: "events/bodoque-running.png", cinematicRepublica: "cinematics/republica.svg", cinematicUla: "cinematics/ula.svg" };
   const images = {}, sprites = {};
   for (const [key, file] of Object.entries(assetNames)) { const im = new Image(); im.src = `assets/${file}`; images[key] = im; }
   // Las hojas recibidas traen fondo blanco: esta pasada lo vuelve transparente para respetar el pixel art.
@@ -15,19 +15,23 @@
   const sheets = ["carlos", "copano", "mon", "freire", "leo"];
   let made = false;
   function makeSprites() {
-    if (made || sheets.some(k => !images[k].complete || !images[k].naturalWidth)) return;
-    made = true;
-    buildSprite("thief", "carlos", [1060, 55, 600, 1430]);
-    buildSprite("copano", "copano", [25, 55, 700, 1420]);
-    buildSprite("copanoTalk", "copanoTalk", [12, 65, 760, 1650]);
-    buildSprite("mon", "mon", [8, 60, 590, 1415]);
-    buildSprite("freire", "freire", [18, 62, 585, 1410]);
-    buildSprite("freireSit", "freire", [2070, 270, 650, 1220]);
-    buildSprite("leo", "leo", [15, 55, 620, 1430]);
+    if (!made) {
+      if (sheets.some(k => !images[k].complete || !images[k].naturalWidth)) return;
+      made = true;
+      buildSprite("thief", "carlos", [1060, 55, 600, 1430]);
+      buildSprite("copano", "copano", [25, 55, 700, 1420]);
+      buildSprite("copanoTalk", "copanoTalk", [12, 65, 760, 1650]);
+      buildSprite("mon", "mon", [8, 60, 590, 1415]);
+      buildSprite("freire", "freire", [18, 62, 585, 1410]);
+      buildSprite("freireSit", "freire", [2070, 270, 650, 1220]);
+      buildSprite("leo", "leo", [15, 55, 620, 1430]);
+    }
+    for (const key of ["player", "bodoque"]) {
+      if (images[key] && images[key].complete && images[key].naturalWidth) sprites[key] = images[key];
+    }
   }
   images.driver.onload = images.driverTalk.onload = () => {};
-  for (const im of Object.values(images)) im.onload = makeSprites;
-  const C = window.MetroConfig, G = window.MetroGame, s = G.state;
+  for (const im of Object.values(images)) im.onload = makeSprites;  const C = window.MetroConfig, G = window.MetroGame, s = G.state;
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   function drawBg(night = false) {
     const im = night ? images.night : images.background;
@@ -69,19 +73,18 @@
     ctx.textAlign=align; ctx.textBaseline="middle"; ctx.font=`${weight} ${size}px Trebuchet MS, Arial`; ctx.fillStyle=color; ctx.shadowColor="#060914"; ctx.shadowBlur=4; ctx.fillText(text,x,y); ctx.shadowBlur=0;
   }
   function pixelAvatar() {
-    const x=520+Math.sin(s.elapsed*8)*2,y=380+Math.sin(s.elapsed*15)*1.5;
-    // Silueta sentada: mochila, polerón, piernas, manos y cabello en bloques de pixel art.
+    const x=540+Math.sin(s.elapsed*8)*1.5,y=286+Math.sin(s.elapsed*15)*1.2;
+    drawSprite("player",x,y,200,385);
+    // La mochila del estudiante queda visible sobre el centro del torso.
     ctx.save();
-    ctx.fillStyle="#17334f"; ctx.fillRect(x+50,y+55,145,150); ctx.fillStyle="#284e70"; ctx.fillRect(x+62,y+67,120,112); ctx.fillStyle="#e1aa55"; ctx.fillRect(x+75,y+82,18,18); ctx.fillRect(x+152,y+82,18,18);
-    ctx.fillStyle="#273449"; ctx.fillRect(x+20,y+145,105,74); ctx.fillRect(x+145,y+145,105,74); ctx.fillStyle="#202938"; ctx.fillRect(x+3,y+196,132,35); ctx.fillRect(x+135,y+196,135,35);
-    ctx.fillStyle="#bc7958"; ctx.fillRect(x+32,y+123,53,35); ctx.fillRect(x+172,y+123,53,35);
-    ctx.fillStyle="#273a58"; ctx.fillRect(x+45,y+60,35,110); ctx.fillRect(x+170,y+60,35,110); ctx.fillStyle="#e2ad7d"; ctx.fillRect(x+78,y+12,94,112); ctx.fillStyle="#292535"; ctx.fillRect(x+69,y+8,111,32); ctx.fillRect(x+62,y+29,28,36); ctx.fillRect(x+161,y+29,30,26);
-    ctx.fillStyle="#2a2224"; ctx.fillRect(x+99,y+55,13,8); ctx.fillRect(x+142,y+55,13,8); ctx.fillStyle="#fff1d8"; ctx.fillRect(x+103,y+58,7,5); ctx.fillRect(x+146,y+58,7,5); ctx.fillStyle="#70443b"; ctx.fillRect(x+113,y+91,25,6);
-    ctx.fillStyle="#be754d"; ctx.fillRect(x+69,y+166,36,29); ctx.fillRect(x+158,y+166,36,29);
-    ctx.fillStyle="#f1c852"; ctx.fillRect(x+72,y+140,10,68); ctx.fillRect(x+181,y+140,10,68);
+    ctx.fillStyle="#142940"; ctx.fillRect(x+77,y+151,48,58);
+    ctx.fillStyle="#294b67"; ctx.fillRect(x+82,y+157,38,43);
+    ctx.fillStyle="#12243a"; ctx.fillRect(x+88,y+172,26,21);
+    ctx.fillStyle="#d4a849"; ctx.fillRect(x+99,y+178,7,8);
+    ctx.fillStyle="#18243a"; ctx.fillRect(x+75,y+148,7,42); ctx.fillRect(x+120,y+148,7,42);
+    ctx.fillStyle="#b33f4a"; ctx.fillRect(x+90,y+158,20,4);
     ctx.restore();
-  }
-  function drawHud() {
+  }  function drawHud() {
     panel(22,18,272,72,"#101629dc","#b8c2dc",8); label(`ESTACIÓN  ${C.stations[s.station] || C.stations[3]}`,42,43,19,"#fff",800); label("23:00  ·  ÚLTIMO TREN",42,70,15,"#d9e0f4",600);
     panel(1000,18,258,72,"#101629dc","#b8c2dc",8); label(`PUNTAJE  ${s.score}`,1020,42,19,"#fff",800); label(`RACHA  ×${s.streak}`,1020,69,16,"#ffd36f",750);
     panel(382,18,516,60,"#101629cc","#b8c2dc",8); label("LOS HÉROES",397,48,12,"#e7eafd",700); label("REPÚBLICA",548,48,12,"#e7eafd",700); label("ULA",699,48,12,"#e7eafd",700); label("EST. CENTRAL",772,48,12,"#e7eafd",700);
@@ -101,13 +104,12 @@
   function drawSpecialSweep() {
     const fx=s.effects.find(e=>e.type==="sweep"); if(!fx)return;
     const x=-125+(5-fx.t)*310, y=465;
-    // Figuras provisionales de pixel art: Tormenta China y el conejo rojo Bodoque.
+    // Tormenta China acompaña a Juan Carlos Bodoque, usando el sprite entregado.
     ctx.fillStyle="#25253a";ctx.fillRect(x+8,y+38,31,79);ctx.fillRect(x-2,y+105,34,13);ctx.fillRect(x+35,y+105,30,13);
     ctx.fillStyle="#e7b947";ctx.fillRect(x+2,y+24,47,63);ctx.fillRect(x+8,y+11,34,22);ctx.fillStyle="#e7b17c";ctx.fillRect(x+11,y-9,27,27);ctx.fillStyle="#292237";ctx.fillRect(x+8,y-13,32,10);
-    ctx.fillStyle="#ae2940";ctx.fillRect(x+76,y+21,39,75);ctx.fillRect(x+80,y-13,12,40);ctx.fillRect(x+101,y-20,12,34);ctx.fillStyle="#dd4c5b";ctx.fillRect(x+72,y+10,50,45);ctx.fillStyle="#f0bd87";ctx.fillRect(x+82,y+22,8,8);ctx.fillRect(x+105,y+22,8,8);ctx.fillStyle="#222235";ctx.fillRect(x+84,y+25,4,5);ctx.fillRect(x+107,y+25,4,5);ctx.fillRect(x+78,y+94,25,15);ctx.fillRect(x+104,y+94,25,15);
-    label("¡BARRIDO!",x+70,y-55,17,"#ffe38c",900,"center");
-  }
-  function drawGame() {
+    drawSprite("bodoque",x+70,y-198,70,198);
+    label("¡BARRIDO!",x+105,y-220,17,"#ffe38c",900,"center");
+  }  function drawGame() {
     drawBg();drawTravel();
     drawVisitors(); pixelAvatar();
     if(s.complete) { const x=s.complete.x,y=520,nx=x<640?x+70:x-155;ctx.fillStyle="#28263b";ctx.fillRect(nx+16,398,43,83);ctx.fillStyle="#a7454f";ctx.fillRect(nx+9,420,57,57);ctx.fillStyle="#e7b082";ctx.fillRect(nx+18,369,39,42);ctx.fillStyle="#342538";ctx.fillRect(nx+13,365,49,16);ctx.fillRect(nx+12,378,10,20);ctx.fillStyle="#e7b082";ctx.fillRect(nx+54,444,32,10);ctx.fillStyle="#212738";ctx.fillRect(nx+10,475,19,40);ctx.fillRect(nx+42,475,19,40);label("¡UPS!",nx+36,350,13,"#fff",800,"center");ctx.fillStyle="#f4d985";ctx.beginPath();ctx.ellipse(x,y,34,16,0,0,7);ctx.fill();ctx.fillStyle="#ef8054";ctx.fillRect(x-22,y-7,44,11);ctx.fillStyle="#43864b";ctx.fillRect(x-8,y-9,15,6);label("ESPACIO",x,y-38,13,"#fff",800,"center"); }
@@ -185,3 +187,4 @@
   }
   window.MetroRender = { render, images, sprites };
 })();
+
