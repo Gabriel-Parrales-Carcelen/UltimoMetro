@@ -4,6 +4,7 @@
     const data = cfg.events[id]; s.buffs = s.buffs.filter(b => b.id !== id);
     s.buffs.push({ id, name: data.name, effect: data.effect, time: data.duration, max: data.duration });
     s.eventName = id; s.hint = `${data.name}: ${data.effect}`; s.hintTime = 2.4;
+    window.MetroAudio?.playCharacter(id);
     s.effects.push({ type: "event", x: 640, y: 215, t: 1.7, label: data.name });
   }
   function update(dt) {
