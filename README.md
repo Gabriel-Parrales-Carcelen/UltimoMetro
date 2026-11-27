@@ -2,6 +2,14 @@
 
 Videojuego 2D de navegador sobre el último viaje de metro entre Los Héroes y Estación Central. Está hecho con HTML, CSS y JavaScript puro, sin frameworks ni servicios externos. `Metro-de-Vuelta.html` es la versión autocontenida: estilos, código e imágenes vienen dentro de un solo archivo, así que no depende de carpetas vecinas.
 
+## Capturas
+
+![Menú principal](assets/screenshots/menu.png)
+
+![Copano en acción](assets/screenshots/gameplay-copano.png)
+
+![Leo Rey en acción](assets/screenshots/gameplay-leo-rey.png)
+
 ## Cómo jugar
 
 Abre `index.html` en un navegador moderno. Pulsa Enter o Espacio para comenzar y avanzar las cinco escenas introductorias.
@@ -25,3 +33,5 @@ El sprite del enemigo se toma de la hoja de Carlos Pinto y conserva su cara sin 
 Los fondos y retratos están en `assets/`. Se mantienen separados del código para poder sustituirlos. `src/config.js` define las estaciones, duración y datos de eventos; `game.js` lleva el estado y las mecánicas; `events.js` contiene eventos; `cinematics.js` define sus textos; `render.js` dibuja la escena e interfaz y elimina el fondo blanco de las hojas de sprites; `main.js` gestiona controles y el ciclo de juego.
 
 El personaje jugador es un dibujo pixelado creado en código porque no venía un sprite de estudiante entre los recursos adjuntos. Los sprites de celebridades y el fondo del vagón se usan en el juego.
+
+
